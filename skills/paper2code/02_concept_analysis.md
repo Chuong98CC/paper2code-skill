@@ -1,244 +1,244 @@
-# Phase 2: 개념 분석 (Concept Analysis)
+# Phase 2: Concept Analysis
 
-## 목표
-연구 논문의 **전체 구조를 파악**하고, 성공적인 재현을 위해 **구현해야 할 모든 요소**를 식별합니다.
+## Goal
+Understand the **overall structure** of the research paper and identify **all elements that must be implemented** for a successful reproduction.
 
 ---
 
-## ⚠️ DO / DON'T 가이드라인 (CRITICAL)
+## ⚠️ DO / DON'T Guidelines (CRITICAL)
 
 ```
 DO:
-✓ 논문의 모든 섹션을 체계적으로 매핑
-✓ 모든 컴포넌트 간의 데이터 흐름과 의존성 파악
-✓ 실험에서 사용된 모든 환경/데이터셋/baseline 식별
-✓ 성공 기준을 구체적인 수치로 정의
-✓ 구현 복잡도와 우선순위 평가
+✓ Systematically map every section of the paper
+✓ Understand the data flow and dependencies between all components
+✓ Identify all environments/datasets/baselines used in the experiments
+✓ Define success criteria with concrete numbers
+✓ Assess implementation complexity and priority
 
 DON'T:
-✗ Related Work를 구현 요구사항으로 혼동하지 말 것
-✗ 추상적인 성공 기준 (예: "좋은 성능") 사용하지 말 것
-✗ 컴포넌트 간 관계를 누락하지 말 것
-✗ ablation study에 필요한 변형을 빠뜨리지 말 것
+✗ Do not confuse Related Work with implementation requirements
+✗ Do not use abstract success criteria (e.g. "good performance")
+✗ Do not omit relationships between components
+✗ Do not skip variants required for the ablation study
 ```
 
 ---
 
-## ⚠️ 출력 형식 제한 (OUTPUT RESTRICTIONS)
+## ⚠️ Output Format Restrictions
 
 ```
 ⚠️ MANDATORY OUTPUT FORMAT:
-- 반드시 YAML 형식으로만 출력
-- 마크다운 설명이나 서문 없이 순수 YAML만
-- 모든 필수 필드가 채워져야 함
-- 구체적인 수치와 출처 포함
+- Output in YAML format only
+- Pure YAML only, with no markdown explanation or preamble
+- All required fields must be filled in
+- Include concrete numbers and sources
 
-출력 시작: "```yaml"
-출력 종료: "```"
+Output start: "```yaml"
+Output end: "```"
 ```
 
 ---
 
-## 분석 프로토콜
+## Analysis Protocol
 
-### 1. 논문 구조 분석
-논문의 완전한 지도 생성:
+### 1. Paper Structure Analysis
+Create a complete map of the paper:
 
 ```yaml
 paper_structure_map:
-  title: "[논문 전체 제목]"
+  title: "[full paper title]"
 
   sections:
     1_introduction:
-      main_claims: "[논문이 달성했다고 주장하는 것]"
-      problem_definition: "[해결하려는 정확한 문제]"
+      main_claims: "[what the paper claims to have achieved]"
+      problem_definition: "[the exact problem being solved]"
 
     2_related_work:
-      key_comparisons: "[이 연구가 기반하거나 경쟁하는 방법들]"
+      key_comparisons: "[methods this work builds on or competes with]"
 
-    3_method:  # 여러 하위 섹션 가능
+    3_method:  # multiple subsections possible
       subsections:
-        3.1: "[제목과 주요 내용]"
-        3.2: "[제목과 주요 내용]"
-      algorithms_presented: "[모든 알고리즘 이름 목록]"
+        3.1: "[title and main content]"
+        3.2: "[title and main content]"
+      algorithms_presented: "[list of all algorithm names]"
 
     4_experiments:
-      environments: "[모든 테스트 환경/데이터셋]"
-      baselines: "[모든 비교 방법]"
-      metrics: "[사용된 모든 평가 지표]"
+      environments: "[all test environments/datasets]"
+      baselines: "[all comparison methods]"
+      metrics: "[all evaluation metrics used]"
 
     5_results:
-      main_findings: "[방법이 작동함을 증명하는 핵심 결과]"
-      tables_figures: "[재현해야 할 중요한 결과 테이블/그림]"
+      main_findings: "[key results proving the method works]"
+      tables_figures: "[important result tables/figures to reproduce]"
 ```
 
-### 2. 방법론 분해
-메인 방법/접근법에 대해:
+### 2. Method Decomposition
+For the main method/approach:
 
 ```yaml
 method_decomposition:
-  method_name: "[전체 이름과 약어]"
+  method_name: "[full name and abbreviation]"
 
-  core_components:  # 구현 가능한 조각으로 분해
+  core_components:  # decompose into implementable pieces
     component_1:
-      name: "[예: State Importance Estimator]"
-      purpose: "[이 컴포넌트가 존재하는 이유]"
-      paper_section: "[설명된 위치]"
+      name: "[e.g. State Importance Estimator]"
+      purpose: "[why this component exists]"
+      paper_section: "[where it is described]"
 
     component_2:
-      name: "[예: Policy Refinement Module]"
-      purpose: "[시스템에서의 역할]"
-      paper_section: "[설명된 위치]"
+      name: "[e.g. Policy Refinement Module]"
+      purpose: "[its role in the system]"
+      paper_section: "[where it is described]"
 
   component_interactions:
-    - "[컴포넌트 1이 컴포넌트 2로 어떻게 전달되는지]"
-    - "[컴포넌트 간 데이터 흐름]"
+    - "[how component 1 is passed to component 2]"
+    - "[data flow between components]"
 
   theoretical_foundation:
-    key_insight: "[주요 이론적 통찰]"
-    why_it_works: "[직관적 설명]"
+    key_insight: "[key theoretical insight]"
+    why_it_works: "[intuitive explanation]"
 ```
 
-### 3. 구현 요구사항 매핑
-논문 내용을 코드 요구사항으로 매핑:
+### 3. Implementation Requirements Mapping
+Map the paper's content to code requirements:
 
 ```yaml
 implementation_map:
   algorithms_to_implement:
-    - algorithm: "[논문에서의 이름]"
-      section: "[정의된 위치]"
+    - algorithm: "[name in the paper]"
+      section: "[where it is defined]"
       complexity: "[Simple/Medium/Complex]"
-      dependencies: "[작동에 필요한 것들]"
+      dependencies: "[what is needed for it to work]"
 
   models_to_build:
-    - model: "[신경망 또는 기타 모델]"
-      architecture_location: "[설명하는 섹션]"
-      purpose: "[이 모델이 하는 일]"
+    - model: "[neural network or other model]"
+      architecture_location: "[section describing it]"
+      purpose: "[what this model does]"
 
   data_processing:
-    - pipeline: "[필요한 데이터 전처리]"
-      requirements: "[데이터가 어떻게 생겨야 하는지]"
+    - pipeline: "[required data preprocessing]"
+      requirements: "[what the data should look like]"
 
   evaluation_suite:
-    - metric: "[지표 이름]"
-      formula_location: "[정의된 위치]"
-      purpose: "[측정하는 것]"
+    - metric: "[metric name]"
+      formula_location: "[where it is defined]"
+      purpose: "[what it measures]"
 ```
 
-### 4. 실험 재현 계획
-필요한 **모든** 실험 식별:
+### 4. Experiment Reproduction Plan
+Identify **all** required experiments:
 
 ```yaml
 experiments_analysis:
   main_results:
-    - experiment: "[이름/설명]"
-      proves: "[이것이 검증하는 주장]"
-      requires: "[실행에 필요한 컴포넌트]"
-      expected_outcome: "[구체적인 숫자/추세]"
+    - experiment: "[name/description]"
+      proves: "[the claim this validates]"
+      requires: "[components needed to run it]"
+      expected_outcome: "[concrete numbers/trends]"
 
   ablation_studies:
-    - study: "[제거되는 것]"
-      purpose: "[이것이 보여주는 것]"
+    - study: "[what is removed]"
+      purpose: "[what this shows]"
 
   baseline_comparisons:
-    - baseline: "[방법 이름]"
+    - baseline: "[method name]"
       implementation_required: "[Yes/No/Partial]"
-      source: "[구현을 찾을 수 있는 곳]"
+      source: "[where to find an implementation]"
 ```
 
-### 5. 핵심 성공 요소
-성공적인 재현의 정의:
+### 5. Key Success Factors
+Definition of a successful reproduction:
 
 ```yaml
 success_criteria:
   must_achieve:
-    - "[반드시 재현해야 할 주요 결과]"
-    - "[반드시 시연해야 할 핵심 동작]"
+    - "[main results that must be reproduced]"
+    - "[key behaviors that must be demonstrated]"
 
   should_achieve:
-    - "[방법을 검증하는 부가 결과]"
+    - "[additional results validating the method]"
 
   validation_evidence:
-    - "[재현할 특정 그림/테이블]"
-    - "[시연할 정성적 동작]"
+    - "[specific figures/tables to reproduce]"
+    - "[qualitative behaviors to demonstrate]"
 ```
 
 ---
 
-## 출력 형식
+## Output Format
 
 ```yaml
 comprehensive_paper_analysis:
   executive_summary:
-    paper_title: "[전체 제목]"
-    core_contribution: "[한 문장 요약]"
+    paper_title: "[full title]"
+    core_contribution: "[one-sentence summary]"
     implementation_complexity: "[Low/Medium/High]"
-    estimated_components: "[구축할 주요 컴포넌트 수]"
+    estimated_components: "[number of main components to build]"
 
   complete_structure_map:
-    # 위의 전체 섹션 분해
+    # full section decomposition from above
 
   method_architecture:
-    # 상세한 컴포넌트 분해
+    # detailed component decomposition
 
   implementation_requirements:
-    # 모든 알고리즘, 모델, 데이터, 지표
+    # all algorithms, models, data, metrics
 
   reproduction_roadmap:
-    phase_1: "[먼저 구현할 것]"
-    phase_2: "[다음에 구축할 것]"
-    phase_3: "[최종 컴포넌트와 검증]"
+    phase_1: "[what to implement first]"
+    phase_2: "[what to build next]"
+    phase_3: "[final components and validation]"
 
   validation_checklist:
-    - "[ ] [달성할 특정 결과]"
-    - "[ ] [시연할 동작]"
-    - "[ ] [맞춰야 할 지표]"
+    - "[ ] [specific results to achieve]"
+    - "[ ] [behaviors to demonstrate]"
+    - "[ ] [metrics to match]"
 ```
 
 ---
 
-## 중요 원칙
+## Important Principles
 
-1. **철저하게**: 아무것도 놓치지 않기. 출력은 재현을 위한 완전한 청사진이어야 함
-2. **구조화**: 논문의 모든 부분을 구현 가능한 조각으로 분해
-3. **관계 파악**: 컴포넌트 간 의존성과 데이터 흐름 명확히
-4. **검증 기준 명시**: 무엇이 "성공적인 재현"인지 정의
-5. **우선순위 설정**: 핵심 기여와 부가 요소 구분
+1. **Be thorough**: Do not miss anything. The output must be a complete blueprint for reproduction
+2. **Structure**: Break down every part of the paper into implementable pieces
+3. **Identify relationships**: Clarify dependencies and data flow between components
+4. **Specify validation criteria**: Define what counts as a "successful reproduction"
+5. **Set priorities**: Distinguish core contributions from secondary elements
 
 ---
 
-## ⚠️ Self-Check: 완료 전 필수 검증 (MANDATORY)
+## ⚠️ Self-Check: Mandatory Verification Before Completion
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️ SELF-CHECK BEFORE FINISHING (모두 YES여야 완료)
+⚠️ SELF-CHECK BEFORE FINISHING (all must be YES to complete)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-논문 구조 분석 확인:
-□ 모든 Method 섹션이 매핑됨?                        → YES / NO
-□ 모든 알고리즘 이름이 목록화됨?                    → YES / NO
-□ 실험 섹션의 모든 실험이 식별됨?                   → YES / NO
+Paper structure analysis check:
+□ Are all Method sections mapped?                            → YES / NO
+□ Are all algorithm names listed?                            → YES / NO
+□ Are all experiments in the Experiments section identified? → YES / NO
 
-컴포넌트 분석 확인:
-□ 모든 컴포넌트의 입력/출력이 정의됨?               → YES / NO
-□ 컴포넌트 간 데이터 흐름이 명확함?                 → YES / NO
-□ 의존성 순서가 파악됨?                            → YES / NO
+Component analysis check:
+□ Are inputs/outputs of all components defined? → YES / NO
+□ Is the data flow between components clear?    → YES / NO
+□ Is the dependency order identified?           → YES / NO
 
-실험 요구사항 확인:
-□ 모든 환경/데이터셋이 식별됨?                      → YES / NO
-□ 모든 baseline 방법이 식별됨?                      → YES / NO
-□ 모든 평가 지표가 정의됨?                         → YES / NO
-□ ablation study 변형들이 식별됨?                   → YES / NO
+Experiment requirements check:
+□ Are all environments/datasets identified? → YES / NO
+□ Are all baseline methods identified?      → YES / NO
+□ Are all evaluation metrics defined?       → YES / NO
+□ Are ablation study variants identified?   → YES / NO
 
-성공 기준 확인:
-□ must_achieve 항목이 구체적인 수치를 포함함?       → YES / NO
-□ 재현할 특정 테이블/그림이 명시됨?                 → YES / NO
+Success criteria check:
+□ Do must_achieve items include concrete numbers?     → YES / NO
+□ Are specific tables/figures to reproduce specified? → YES / NO
 
-출력 형식 확인:
-□ 순수 YAML 형식으로 출력됨?                        → YES / NO
-□ 모든 필수 필드가 채워짐?                          → YES / NO
+Output format check:
+□ Is the output in pure YAML format? → YES / NO
+□ Are all required fields filled in? → YES / NO
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️ 하나라도 NO라면 완료될 때까지 계속 분석!
+⚠️ If even one is NO, keep analyzing until it is complete!
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```

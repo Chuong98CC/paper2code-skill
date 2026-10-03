@@ -1,266 +1,266 @@
-# Phase 4: 코드 구현 가이드 (Implementation Guide)
+# Phase 4: Code Implementation Guide
 
-## 목표
-Phase 3에서 생성된 구현 계획을 바탕으로 **완전하고 실행 가능한 코드베이스**를 생성합니다.
+## Goal
+Generate a **complete and executable codebase** based on the implementation plan produced in Phase 3.
 
 ---
 
-## 핵심 행동 제어 규칙
+## Core Behavioral Control Rules
 
 ### ⚠️ CRITICAL BEHAVIORAL RULES
 
 ```
 ⚠️ SINGLE FILE PER RESPONSE:
-- 한 응답에서 정확히 하나의 파일만 구현
-- 파일 간 허락을 구하지 말 것
-- 완료될 때까지 계속 구현
+- Implement exactly one file per response
+- Do not ask for permission between files
+- Keep implementing until done
 
 DO:
-- 논문에 명시된 것 정확히 구현
-- 간단하고 직접적인 코드 작성
-- 작동하는 것 우선, 우아한 것은 나중
-- 각 컴포넌트 즉시 테스트
-- 구현 완료 후 바로 다음 파일로 이동
+- Implement exactly what the paper specifies
+- Write simple, direct code
+- Working first, elegant later
+- Test each component immediately
+- Move to the next file right after finishing an implementation
 
 DON'T:
-- 파일 사이에 "다음 파일을 구현할까요?" 묻지 말 것
-- 논문 요구사항 대신 고급 도구링에 시간 낭비
-- 핵심 기능에 필요하지 않은 광범위한 문서화
-- 재현에 필요하지 않은 최적화 유틸리티
-- 과도한 추상화나 디자인 패턴
-- 지시 제공만 하고 실제 코드를 작성하지 않는 것
+- Don't ask "Should I implement the next file?" between files
+- Waste time on advanced tooling instead of paper requirements
+- Extensive documentation not needed for core functionality
+- Optimization utilities not needed for reproducibility
+- Excessive abstraction or design patterns
+- Only giving instructions without writing actual code
 ```
 
-### 도구 호출 전략
+### Tool Calling Strategy
 
 ```
 TOOL CALLING STRATEGY:
-1. ⚠️ 메시지당 하나의 파일 구현
-2. 결과 확인 후 다음 단계 계획
-3. 파일 구현 사이클: 분석 → 구현 → 다음 파일
+1. ⚠️ Implement one file per message
+2. Plan the next step after checking results
+3. File implementation cycle: analyze → implement → next file
 
 EXECUTION PATTERN:
-- Plan First: 각 작업 전 추론 설명
-- One Step at a Time: 실행 → 결과 확인 → 다음 계획 → 실행
-- Iterative Progress: 점진적으로 솔루션 구축
-- Strategic Sequencing: 이전 결과에 기반한 논리적 다음 단계 선택
+- Plan First: Explain reasoning before each task
+- One Step at a Time: Execute → check results → plan next → execute
+- Iterative Progress: Build the solution incrementally
+- Strategic Sequencing: Choose the logical next step based on previous results
 
-⚠️ CRITICAL: bash와 python 도구를 사용하여 직접 논문을 복제할 것
-            - 지시만 제공하지 말고 실제로 구현할 것
+⚠️ CRITICAL: Use bash and python tools to directly reproduce the paper
+            - Don't just give instructions, actually implement it
 ```
 
 ---
 
-## 최우선 목표
+## Top Priority
 
-논문에 언급된 **모든** 알고리즘, 실험, 방법을 구현합니다.
-성공은 **완전성과 정확성**으로 측정되며, 코드 우아함이 아닙니다.
+Implement **all** algorithms, experiments, and methods mentioned in the paper.
+Success is measured by **completeness and accuracy**, not by code elegance.
 
-### 핵심 전략
-- 논문과 구현 계획을 철저히 읽고 모든 알고리즘, 방법, 실험 식별
-- 핵심 알고리즘 먼저, 그 다음 환경, 그 다음 통합 구현
-- 논문에 명시된 정확한 버전과 사양 사용
-- 각 컴포넌트 구현 후 즉시 테스트
-- 완벽한 아키텍처보다 작동하는 구현에 집중
-
----
-
-## 구현 접근법
-
-### 파일별 점진적 구축
-각 단계에서:
-1. **식별**: 구현 계획에서 다음으로 구현할 것 확인
-2. **구현**: 한 번에 하나의 컴포넌트 구현
-3. **테스트**: 문제를 조기에 발견하기 위해 즉시 테스트
-4. **통합**: 기존 컴포넌트와 통합
-5. **검증**: 논문 사양과 대조 검증
+### Core Strategy
+- Read the paper and the implementation plan thoroughly and identify every algorithm, method, and experiment
+- Core algorithms first, then the environment, then integrated implementation
+- Use the exact versions and specifications stated in the paper
+- Test each component immediately after implementing it
+- Focus on a working implementation rather than a perfect architecture
 
 ---
 
-## 구현 순서
+## Implementation Approach
 
-### 1단계: 설정 및 환경 파일
+### Incremental Build, File by File
+At each step:
+1. **Identify**: Check the implementation plan for what to implement next
+2. **Implement**: Implement one component at a time
+3. **Test**: Test immediately to catch problems early
+4. **Integrate**: Integrate with existing components
+5. **Validate**: Validate against the paper's specifications
+
+---
+
+## Implementation Order
+
+### Step 1: Setup and Environment Files
 ```
-pyproject.toml     # uv 프로젝트 설정 (uv init으로 생성)
-config.py          # 모든 하이퍼파라미터와 설정
+pyproject.toml     # uv project configuration (created by uv init)
+config.py          # All hyperparameters and settings
 ```
 
-### 2단계: 핵심 유틸리티와 베이스 클래스
+### Step 2: Core Utilities and Base Classes
 ```
 utils/__init__.py
-utils/helpers.py   # 공통 유틸리티 함수
+utils/helpers.py   # Common utility functions
 ```
 
-### 3단계: 메인 구현 모듈
+### Step 3: Main Implementation Modules
 ```
 models/__init__.py
-models/network.py      # 핵심 네트워크 아키텍처
-models/components.py   # 개별 컴포넌트
+models/network.py      # Core network architecture
+models/components.py   # Individual components
 
 algorithms/__init__.py
-algorithms/core.py     # 메인 알고리즘 구현
+algorithms/core.py     # Main algorithm implementation
 ```
 
-### 4단계: 학습 파이프라인
+### Step 4: Training Pipeline
 ```
 training/__init__.py
-training/losses.py    # 손실 함수
-training/trainer.py   # 학습 루프
+training/losses.py    # Loss functions
+training/trainer.py   # Training loop
 ```
 
-### 5단계: 평가 및 실험
+### Step 5: Evaluation and Experiments
 ```
 evaluation/__init__.py
-evaluation/metrics.py        # 평가 지표
-experiments/run_main.py      # 메인 실험 스크립트
+evaluation/metrics.py        # Evaluation metrics
+experiments/run_main.py      # Main experiment script
 ```
 
-### 6단계: 진입점 및 문서화
+### Step 6: Entry Point and Documentation
 ```
-main.py            # 메인 진입점
-README.md          # 사용 방법 문서 (uv run 명령 포함)
+main.py            # Main entry point
+README.md          # Usage documentation (including uv run commands)
 ```
 
-### 환경 설정 명령 (uv 사용)
+### Environment Setup Commands (using uv)
 ```bash
-# 프로젝트 시작 시
+# At project start
 uv init
-uv add torch numpy [필요한 패키지들]
+uv add torch numpy [required packages]
 
-# 실행
+# Run
 uv run python main.py
 ```
 
 ---
 
-## 코드 품질 기준
+## Code Quality Standards
 
-### 완전성
-- 플레이스홀더, TODO, 불완전한 함수 **없음**
-- 적절한 에러 핸들링이 포함된 전체 기능 구현
-- 올바른 시그니처와 문서화가 있는 완전한 API
-- 즉시 작동하는 모든 명시된 기능
+### Completeness
+- **No** placeholders, TODOs, or incomplete functions
+- Full feature implementation with proper error handling
+- Complete APIs with correct signatures and documentation
+- Every specified feature working out of the box
 
-### 품질
-- 언어 모범 사례를 따르는 프로덕션 수준 코드
-- 포괄적인 타입 힌트와 docstring
-- 적절한 로깅, 검증, 리소스 관리
-- 관심사 분리가 된 깔끔한 아키텍처
+### Quality
+- Production-level code following language best practices
+- Comprehensive type hints and docstrings
+- Proper logging, validation, and resource management
+- Clean architecture with separation of concerns
 
-### 도메인별 적응
+### Domain-Specific Adaptation
 
-**연구/ML 논문:**
-- 수학적 정확성
-- 재현성 (시드, 결정론적 연산)
-- 평가 지표
-- 실험 로깅
+**Research/ML papers:**
+- Mathematical accuracy
+- Reproducibility (seeds, deterministic operations)
+- Evaluation metrics
+- Experiment logging
 
-**시스템/도구:**
-- CLI 인터페이스
-- 설정 관리
-- 에러 핸들링
-- 문서화
+**Systems/Tools:**
+- CLI interface
+- Configuration management
+- Error handling
+- Documentation
 
 ---
 
-## ✅ 완료 체크리스트 (MANDATORY)
+## ✅ Completion Checklist (MANDATORY)
 
-작업을 완료로 간주하기 **전에** 반드시 확인:
+Before considering the work complete, be sure to verify:
 
 ```
 ✅ COMPLETENESS CHECKLIST:
-- [ ] 논문에 언급된 모든 알고리즘 (약어나 대체 이름 포함)
-- [ ] 명시된 정확한 버전의 모든 환경/데이터셋
-- [ ] 실험에서 참조된 모든 비교 방법
-- [ ] 논문의 실험을 실행할 수 있는 작동하는 통합
-- [ ] 논문의 모든 metrics, figures, tables를 재현하는 완전한 코드베이스
-- [ ] 결과 재현 방법을 설명하는 기본 문서
+- [ ] Every algorithm mentioned in the paper (including abbreviations and alternative names)
+- [ ] Every environment/dataset at the exact version specified
+- [ ] Every comparison method referenced in the experiments
+- [ ] A working integration that can run the paper's experiments
+- [ ] A complete codebase that reproduces all of the paper's metrics, figures, and tables
+- [ ] Basic documentation explaining how to reproduce the results
 
-⚠️ 모든 항목이 체크되지 않으면 완료가 아님!
+⚠️ If not every item is checked, it is not complete!
 ```
 
 ---
 
-## 핵심 성공 요소
+## Critical Success Factors
 
 ```
 CRITICAL SUCCESS FACTORS:
 
-1. Accuracy (정확성):
-   - 논문 사양과 정확히 일치 (버전, 파라미터, 설정)
-   - 수식을 코드로 정확히 변환
-   - 하이퍼파라미터 값 정확히 사용
+1. Accuracy:
+   - Match the paper's specifications exactly (versions, parameters, settings)
+   - Convert equations into code exactly
+   - Use hyperparameter values exactly
 
-2. Completeness (완전성):
-   - 주요 기여뿐만 아니라 논의된 모든 방법 구현
-   - ablation study에 필요한 변형들도 구현
-   - baseline 비교에 필요한 것들도 구현
+2. Completeness:
+   - Implement all discussed methods, not just the main contribution
+   - Also implement the variants needed for ablation studies
+   - Also implement what is needed for baseline comparisons
 
-3. Functionality (기능성):
-   - 코드가 실제로 작동하고 실험을 성공적으로 실행
-   - 에러 없이 학습/평가 가능
-   - 논문의 결과를 실제로 재현 가능
+3. Functionality:
+   - The code actually works and runs the experiments successfully
+   - Training/evaluation runs without errors
+   - The paper's results can actually be reproduced
 ```
 
 ---
 
-## 실행 가이드라인
+## Execution Guidelines
 
-### 각 파일 구현 전
-1. 구현 계획에서 해당 파일의 요구사항 확인
-2. 의존하는 파일들이 이미 구현되었는지 확인
-3. 논문의 관련 수식/알고리즘 참조
+### Before Implementing Each File
+1. Check the requirements for that file in the implementation plan
+2. Check whether the files it depends on have already been implemented
+3. Refer to the relevant equations/algorithms in the paper
 
-### 각 파일 구현 시
-1. 완전한 import 문 작성
-2. 클래스/함수 구조 정의
-3. 논문의 수식/알고리즘을 코드로 변환
-4. 적절한 docstring 추가
-5. 에러 핸들링 추가
+### While Implementing Each File
+1. Write complete import statements
+2. Define the class/function structure
+3. Convert the paper's equations/algorithms into code
+4. Add appropriate docstrings
+5. Add error handling
 
-### 각 파일 구현 후
-1. 구문 오류 없는지 확인
-2. import가 모두 해결되는지 확인
-3. 가능하면 간단한 테스트 실행
-4. **바로 다음 파일로 이동** (허락 구하지 말 것)
+### After Implementing Each File
+1. Check for syntax errors
+2. Check that all imports resolve
+3. Run a simple test if possible
+4. **Move to the next file right away** (do not ask for permission)
 
 ---
 
-## 파일 작성 템플릿
+## File Writing Template
 
-### Python 파일 기본 구조
+### Basic Python File Structure
 ```python
 """
-[파일 설명]
+[File description]
 
-논문: [논문 제목]
-섹션: [관련 섹션 번호]
+Paper: [Paper title]
+Section: [Relevant section number]
 """
 
 import ...
 
-# 논문의 하이퍼파라미터
-PARAM_NAME = value  # 출처: Section X / Table Y
+# Paper hyperparameters
+PARAM_NAME = value  # Source: Section X / Table Y
 
 
 class ComponentName:
     """
-    [컴포넌트 설명]
+    [Component description]
 
-    논문의 Equation X 구현:
-    [수식]
+    Implementation of Equation X from the paper:
+    [Equation]
     """
 
     def __init__(self, ...):
         ...
 
     def forward(self, ...):
-        # Eq. X 구현
+        # Implementation of Eq. X
         ...
 
 
 def main():
-    """메인 실행 함수"""
+    """Main entry function"""
     ...
 
 
@@ -270,28 +270,28 @@ if __name__ == "__main__":
 
 ---
 
-## 최종 확인
+## Final Checks
 
-구현 완료 후:
+After the implementation is complete:
 
-1. **실행 테스트**: `python main.py` 에러 없이 실행되는가?
-2. **학습 테스트**: 작은 데이터로 학습이 진행되는가?
-3. **결과 확인**: 논문의 주요 결과를 재현할 수 있는가?
-4. **문서 확인**: README.md에 실행 방법이 명확한가?
+1. **Execution test**: Does `python main.py` run without errors?
+2. **Training test**: Does training proceed on a small dataset?
+3. **Result check**: Can the paper's main results be reproduced?
+4. **Documentation check**: Is the execution method clear in README.md?
 
-모든 항목이 통과하면 구현 완료!
+If all items pass, the implementation is complete!
 
 ---
 
 ## ⚠️ REMEMBER
 
 ```
-논문 전체를 복제하는 것이 목표입니다.
-단일 부분이나 최소 예제가 아닙니다.
+The goal is to reproduce the entire paper.
+Not a single part or a minimal example.
 
-파일 읽기 도구는 PAGINATED되어 있으므로,
-논문의 모든 관련 부분을 읽으려면 여러 번 호출해야 합니다.
+The file reading tool is PAGINATED,
+so you must call it multiple times to read all relevant parts of the paper.
 
-참조 코드에서 찾은 패턴이 있다면 영감으로만 사용하고,
-항상 논문 원본 사양에 따라 구현하세요.
+If you find patterns in reference code, use them only as inspiration,
+and always implement according to the paper's original specifications.
 ```

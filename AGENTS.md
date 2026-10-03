@@ -73,10 +73,9 @@ DON'T:
 ## ACTIVATION TRIGGERS
 
 The skill activates when users say things like:
-- "이 논문 구현해줘" (Implement this paper)
 - "paper2code"
-- "논문 코드로 변환" (Convert paper to code)
 - "implement this paper"
+- "convert paper to code"
 - Provide an arXiv URL or PDF path
 
 ## OUTPUT FORMAT

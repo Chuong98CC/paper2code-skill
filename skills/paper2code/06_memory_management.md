@@ -1,57 +1,57 @@
-# 메모리 및 컨텍스트 관리 가이드
+# Memory and Context Management Guide
 
-## 목적
-긴 논문 처리 시 **컨텍스트 오버플로우를 방지**하고 **효율적인 작업 진행**을 보장합니다.
+## Purpose
+When processing long papers, this **prevents context overflow** and ensures **efficient task progress**.
 
 ---
 
-## 핵심 전략
+## Core Strategies
 
-### 1. 단계별 출력 저장
+### 1. Save Output Step by Step
 
-각 Phase 완료 시 결과를 파일로 저장하여 컨텍스트 부담을 줄입니다:
+Save results to files when each Phase completes to reduce the context burden:
 
 ```
 paper_workspace/
-├── paper.txt                      # 원본 논문 텍스트
-├── 01_algorithm_extraction.yaml   # Phase 1 결과
-├── 02_concept_analysis.yaml       # Phase 2 결과
-├── 03_implementation_plan.yaml    # Phase 3 결과
-└── src/                           # Phase 4 생성 코드
+├── paper.txt                      # Original paper text
+├── 01_algorithm_extraction.yaml   # Phase 1 result
+├── 02_concept_analysis.yaml       # Phase 2 result
+├── 03_implementation_plan.yaml    # Phase 3 result
+└── src/                           # Phase 4 generated code
     ├── config.py
     ├── models/
     ├── algorithms/
     └── ...
 ```
 
-**저장 명령 예시:**
+**Example save commands:**
 ```bash
-# Phase 1 결과 저장
+# Save the Phase 1 result
 cat > paper_workspace/01_algorithm_extraction.yaml << 'EOF'
-[Phase 1 YAML 출력]
+[Phase 1 YAML output]
 EOF
 
-# Phase 2 결과 저장
+# Save the Phase 2 result
 cat > paper_workspace/02_concept_analysis.yaml << 'EOF'
-[Phase 2 YAML 출력]
+[Phase 2 YAML output]
 EOF
 ```
 
-### 2. Phase 간 컨텍스트 전달
+### 2. Passing Context Between Phases
 
-다음 Phase로 넘어갈 때 **전체 출력 대신 핵심 요약만 전달**:
+When moving to the next Phase, **pass only the key summary instead of the full output**:
 
 ```yaml
-# Phase 1 → Phase 2 전달 요약
+# Summary passed from Phase 1 → Phase 2
 phase1_summary:
   algorithms_found: 3
   key_algorithms:
-    - "Algorithm 1: [이름] - [핵심 내용 1줄]"
-    - "Algorithm 2: [이름] - [핵심 내용 1줄]"
+    - "Algorithm 1: [name] - [one-line key content]"
+    - "Algorithm 2: [name] - [one-line key content]"
   hyperparameters_count: 15
   critical_equations: [3, 5, 7, 12]
 
-# Phase 2 → Phase 3 전달 요약
+# Summary passed from Phase 2 → Phase 3
 phase2_summary:
   components_count: 5
   implementation_complexity: "Medium"
@@ -61,205 +61,205 @@ phase2_summary:
   experiments_count: 4
 ```
 
-### 3. 구현 시 메모리 최적화
+### 3. Memory Optimization During Implementation
 
-파일별 구현 사이클에서 컨텍스트 관리:
+Managing context during the per-file implementation cycle:
 
 ```
-파일 구현 사이클:
+File implementation cycle:
 ┌─────────────────────────────────────────────────────┐
-│ 1. 현재 파일 구현에 필요한 정보만 로드               │
-│    - implementation_plan.yaml에서 해당 파일 섹션    │
-│    - 의존하는 파일의 인터페이스 (전체 코드 X)        │
+│ 1. Load only the info needed for the current file   │
+│    - the file's section in implementation_plan.yaml │
+│    - dependency file interfaces (not the full code) │
 ├─────────────────────────────────────────────────────┤
-│ 2. 파일 구현                                        │
+│ 2. Implement the file                               │
 ├─────────────────────────────────────────────────────┤
-│ 3. 구현 완료 후 다음 파일로 이동                    │
-│    - 이전 파일 내용은 필요시에만 참조               │
-│    - 전체 코드를 메모리에 유지하지 않음             │
+│ 3. Move to the next file when done implementing     │
+│    - reference the previous file only when needed   │
+│    - do not keep the full code in memory            │
 └─────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 긴 논문 처리 팁
+## Tips for Processing Long Papers
 
-### 논문 분할 읽기
+### Reading the Paper in Parts
 
-논문이 매우 길 경우 섹션별로 분석:
+If the paper is very long, analyze it section by section:
 
 ```
-읽기 순서 (우선순위):
-1. Abstract + Introduction (핵심 기여 파악)
-2. Method 섹션 전체 (알고리즘 추출)
-3. Experiments 섹션 (환경, baseline, 지표)
-4. Appendix (세부 하이퍼파라미터)
-5. Related Work (필요시에만)
+Reading order (priority):
+1. Abstract + Introduction (identify the key contributions)
+2. Entire Method section (extract algorithms)
+3. Experiments section (environment, baselines, metrics)
+4. Appendix (detailed hyperparameters)
+5. Related Work (only when needed)
 
-스킵 가능:
-- Related Work 상세 내용 (구현에 불필요)
-- 긴 Discussion/Conclusion (요약만)
+Can skip:
+- Related Work details (not needed for implementation)
+- Long Discussion/Conclusion (summary only)
 - Acknowledgments
 ```
 
-### 큰 알고리즘 분할
+### Splitting Large Algorithms
 
-복잡한 알고리즘은 하위 컴포넌트로 분할:
+Split complex algorithms into sub-components:
 
 ```yaml
-# 전체를 한 번에 처리하지 않고 분할
+# Split it instead of processing everything at once
 large_algorithm:
   component_1:
     extracted: true
-    summary: "[요약]"
+    summary: "[summary]"
   component_2:
     extracted: true
-    summary: "[요약]"
+    summary: "[summary]"
   component_3:
-    extracted: false  # 아직 미처리
+    extracted: false  # not yet processed
 ```
 
 ---
 
-## Self-Monitoring 체크포인트
+## Self-Monitoring Checkpoints
 
-구현 중 다음 상황에서 **중간 저장** 권장:
+During implementation, **intermediate saves** are recommended in the following situations:
 
 ```
-중간 저장 트리거:
-□ 5개 파일 구현 완료마다
-□ 복잡한 알고리즘 (50줄 이상) 구현 완료 시
-□ 에러 발생 시 현재 상태 저장
-□ 새로운 Phase 시작 전
-□ 긴 작업 (30분 이상 예상) 시작 전
+Intermediate save triggers:
+□ Every 5 files implemented
+□ When a complex algorithm (50+ lines) is implemented
+□ Save the current state when an error occurs
+□ Before starting a new Phase
+□ Before starting a long task (30+ minutes expected)
 ```
 
-### 저장 체크리스트
+### Save Checklist
 
 ```yaml
 checkpoint_save:
-  current_phase: "[현재 Phase 번호]"
+  current_phase: "[current Phase number]"
   completed_files:
     - "config.py"
     - "models/network.py"
   current_file: "algorithms/core.py"
-  current_progress: "50%"  # 현재 파일 진행률
+  current_progress: "50%"  # progress on the current file
   next_steps:
-    - "[다음 할 일 1]"
-    - "[다음 할 일 2]"
+    - "[next task 1]"
+    - "[next task 2]"
   blockers:
-    - "[있다면 막힌 부분]"
+    - "[blockers, if any]"
 ```
 
 ---
 
-## 컨텍스트 복구 프로토콜
+## Context Recovery Protocol
 
-대화가 중단되었거나 컨텍스트가 손실된 경우:
+If the conversation was interrupted or context was lost:
 
 ```
-복구 단계:
-1. paper_workspace/ 디렉토리 확인
-2. 가장 최근 완료된 Phase 결과 파일 읽기
-3. 생성된 코드 파일 목록 확인
-4. 마지막 작업 지점 파악
-5. 해당 지점부터 재개
+Recovery steps:
+1. Check the paper_workspace/ directory
+2. Read the most recently completed Phase result file
+3. Check the list of generated code files
+4. Determine the last point of work
+5. Resume from that point
 ```
 
-**복구 명령 예시:**
+**Example recovery commands:**
 ```bash
-# 현재 상태 확인
+# Check the current state
 ls -la paper_workspace/
 ls -la paper_workspace/src/
 
-# 마지막 Phase 결과 확인
+# Check the last Phase result
 cat paper_workspace/03_implementation_plan.yaml
 
-# 생성된 파일 확인
+# Check generated files
 find paper_workspace/src -name "*.py" -type f
 ```
 
 ---
 
-## 효율적인 참조 패턴
+## Efficient Reference Patterns
 
-### 인터페이스만 참조
+### Reference Only the Interface
 
-다른 파일을 참조할 때 **전체 구현이 아닌 인터페이스만** 필요:
+When referencing another file, **only the interface is needed, not the full implementation**:
 
 ```python
-# 전체 코드 대신 시그니처만 참조
-# models/network.py의 인터페이스:
+# Reference only signatures instead of the full code
+# Interface of models/network.py:
 class NetworkModel:
     def __init__(self, config: Config): ...
     def forward(self, x: Tensor) -> Tensor: ...
     def get_features(self, x: Tensor) -> Tensor: ...
 ```
 
-### 의존성 그래프 활용
+### Using the Dependency Graph
 
-구현 순서를 결정할 때 의존성 그래프 참조:
+Reference the dependency graph when deciding the implementation order:
 
 ```
-config.py (의존성 없음)
+config.py (no dependencies)
     ↓
-utils/helpers.py (config만 의존)
+utils/helpers.py (depends only on config)
     ↓
-models/components.py (config, utils 의존)
+models/components.py (depends on config, utils)
     ↓
-models/network.py (components 의존)
+models/network.py (depends on components)
     ↓
-algorithms/core.py (network 의존)
+algorithms/core.py (depends on network)
     ↓
-training/trainer.py (모두 의존)
+training/trainer.py (depends on all)
 ```
 
 ---
 
-## ⚠️ 주의사항
+## ⚠️ Precautions
 
 ```
 ⚠️ MEMORY MANAGEMENT RULES:
 
-1. 전체 논문을 한 번에 처리하지 말 것
-   → 섹션별로 나누어 처리
+1. Do not process the entire paper at once
+   → Process it section by section
 
-2. 이전 Phase 전체 출력을 다음 Phase에 포함하지 말 것
-   → 핵심 요약만 전달
+2. Do not include the full output of the previous Phase in the next Phase
+   → Pass only the key summary
 
-3. 모든 생성 코드를 메모리에 유지하지 말 것
-   → 파일로 저장하고 필요시 참조
+3. Do not keep all generated code in memory
+   → Save it to files and reference it when needed
 
-4. 긴 작업 시 주기적으로 진행 상태 저장
-   → 중단 시 복구 가능하도록
+4. During long tasks, periodically save progress
+   → So recovery is possible if interrupted
 
-5. 불필요한 반복 읽기 피하기
-   → 한 번 읽은 정보는 요약하여 보관
+5. Avoid unnecessary repeated reads
+   → Summarize and store information once it has been read
 ```
 
 ---
 
-## 권장 워크플로우
+## Recommended Workflow
 
 ```
-[논문 입력]
+[Paper input]
     │
     ▼
-[Phase 1: 알고리즘 추출]
-    │ → 01_algorithm_extraction.yaml 저장
-    │ → 핵심 요약 생성
+[Phase 1: Algorithm extraction]
+    │ → Save 01_algorithm_extraction.yaml
+    │ → Generate key summary
     ▼
-[Phase 2: 개념 분석]
-    │ → 02_concept_analysis.yaml 저장
-    │ → Phase 1 요약 + Phase 2 요약 유지
+[Phase 2: Concept analysis]
+    │ → Save 02_concept_analysis.yaml
+    │ → Keep Phase 1 summary + Phase 2 summary
     ▼
-[Phase 3: 구현 계획]
-    │ → 03_implementation_plan.yaml 저장
-    │ → 구현에 필요한 핵심 정보만 유지
+[Phase 3: Implementation planning]
+    │ → Save 03_implementation_plan.yaml
+    │ → Keep only key info needed for implementation
     ▼
-[Phase 4: 코드 구현]
-    │ → 파일별로 구현하며 저장
-    │ → 5개 파일마다 체크포인트
+[Phase 4: Code implementation]
+    │ → Implement and save file by file
+    │ → Checkpoint every 5 files
     ▼
-[완료]
+[Done]
 ```

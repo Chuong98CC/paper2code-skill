@@ -1,7 +1,5 @@
 # Paper2Code Skill for Claude Code
 
-**English** | [한국어](README.ko.md)
-
 > Transform research papers into executable code with a structured, multi-phase pipeline.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

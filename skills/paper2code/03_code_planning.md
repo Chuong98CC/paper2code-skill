@@ -1,365 +1,365 @@
-# Phase 3: 구현 계획 수립 (Code Planning)
+# Phase 3: Creating the Implementation Plan (Code Planning)
 
-## 목표
-Phase 1(알고리즘 추출)과 Phase 2(개념 분석)의 결과를 통합하여, 개발자가 **논문을 읽지 않고도** 전체를 구현할 수 있는 상세한 계획을 생성합니다.
+## Goal
+Integrate the results of Phase 1 (algorithm extraction) and Phase 2 (concept analysis) to generate a detailed plan that lets a developer implement the whole thing **without reading the paper**.
 
 ---
 
-## ⚠️ 콘텐츠 분량 가이드라인 (STRICTLY FOLLOW)
+## ⚠️ Content Length Guidelines (STRICTLY FOLLOW)
 
 ```
 📏 CONTENT BALANCE GUIDELINES:
 
-Section 1 (file_structure):           ~800-1000자
-Section 2 (implementation_components): ~3000-4000자  ← 핵심 섹션
-Section 3 (validation_approach):       ~2000-2500자
-Section 4 (environment_setup):         ~800-1000자
-Section 5 (implementation_strategy):   ~1500-2000자
+Section 1 (file_structure):           ~800-1000 chars
+Section 2 (implementation_components): ~3000-4000 chars  ← core section
+Section 3 (validation_approach):       ~2000-2500 chars
+Section 4 (environment_setup):         ~800-1000 chars
+Section 5 (implementation_strategy):   ~1500-2000 chars
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📊 Total Target: 8000-10000자
+📊 Total Target: 8000-10000 chars
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-⚠️ Section 2가 가장 중요! 모든 알고리즘, 수식, 파라미터 포함
-⚠️ 분량이 부족하면 세부사항이 누락된 것 - 다시 확인할 것
+⚠️ Section 2 is the most important! Include all algorithms, equations, and parameters
+⚠️ If the length falls short, details are missing - check again
 ```
 
 ---
 
-## 입력
-1. **Phase 1 결과**: 완전한 알고리즘 추출 (algorithm_extraction.yaml)
-2. **Phase 2 결과**: 포괄적인 논문 분석 (concept_analysis.yaml)
+## Input
+1. **Phase 1 results**: complete algorithm extraction (algorithm_extraction.yaml)
+2. **Phase 2 results**: comprehensive paper analysis (concept_analysis.yaml)
 
 ---
 
-## 계획 수립 프로세스
+## Planning Process
 
-### 1. 정보 통합
-두 분석의 **모든 것**을 결합:
-- 모든 알고리즘과 의사코드
-- 모든 컴포넌트와 아키텍처
-- 모든 하이퍼파라미터와 값
-- 모든 실험과 예상 결과
+### 1. Information Integration
+Combine **everything** from both analyses:
+- All algorithms and pseudocode
+- All components and architecture
+- All hyperparameters and values
+- All experiments and expected results
 
-### 2. 구현 매핑
-각 컴포넌트를 구체적인 구현으로 연결:
-
-```
-[논문의 각 알고리즘/컴포넌트/방법에 대해]:
-  - 논문에서 하는 일과 설명 위치
-  - 코드 구성 방법 (파일, 클래스, 함수)
-  - 구현 필요한 구체적 수식, 알고리즘, 절차
-  - 다른 컴포넌트와의 의존성 및 관계
-  - 이 논문에 적합한 구현 접근법
-```
-
-### 3. 기술적 세부사항 추출
-구현에 관련된 모든 기술적 세부사항 수집:
+### 2. Implementation Mapping
+Map each component to a concrete implementation:
 
 ```
-[논문에서 모든 구현 관련 세부사항 수집]:
-  - 완전한 의사코드와 수학적 공식화가 있는 모든 알고리즘
-  - 모든 파라미터, 하이퍼파라미터, 설정값
-  - 모든 아키텍처 세부사항 (해당되는 경우)
-  - 모든 실험 절차와 평가 방법
-  - 언급된 구현 힌트, 트릭, 특별한 고려사항
+[For each algorithm/component/method in the paper]:
+  - What it does and where it is described in the paper
+  - How to organize the code (files, classes, functions)
+  - The specific equations, algorithms, and procedures required for implementation
+  - Dependencies on and relationships with other components
+  - The implementation approach appropriate for this paper
+```
+
+### 3. Extracting Technical Details
+Collect all technical details relevant to the implementation:
+
+```
+[Collect all implementation-related details from the paper]:
+  - All algorithms with complete pseudocode and mathematical formulation
+  - All parameters, hyperparameters, and configuration values
+  - All architecture details (where applicable)
+  - All experimental procedures and evaluation methods
+  - Any implementation hints, tricks, and special considerations mentioned
 ```
 
 ---
 
-## 출력 형식: 5개 필수 섹션
+## Output Format: 5 Required Sections
 
 ```yaml
 complete_reproduction_plan:
   paper_info:
-    title: "[논문 전체 제목]"
-    core_contribution: "[재현할 주요 혁신]"
+    title: "[Full paper title]"
+    core_contribution: "[Main innovation to reproduce]"
 
   # ============================================
-  # 섹션 1: 파일 구조 (~800-1000자)
+  # Section 1: File Structure (~800-1000 chars)
   # ============================================
-  # 이 논문에 가장 적합한 파일 구성 설계
-  # - 논문 내용 분석 (알고리즘, 모델, 실험, 시스템 등)
-  # - 구현에 가장 논리적인 방식으로 파일과 디렉토리 구성
-  # - 논문 내용에 기반한 의미 있는 이름과 그룹화
-  # - 깔끔하고 직관적이며 실제 구현에 집중
-  # - 문서 파일 (README.md, requirements.txt) 포함하되 마지막에 구현
+  # Design the file organization best suited to this paper
+  # - Analyze the paper content (algorithms, models, experiments, systems, etc.)
+  # - Organize files and directories in the most logical way for the implementation
+  # - Meaningful names and groupings based on the paper content
+  # - Clean, intuitive, and focused on the actual implementation
+  # - Include documentation files (README.md, requirements.txt) but implement them last
 
   file_structure: |
     project_name/
-    ├── main.py                    # 메인 진입점
-    ├── config.py                  # 설정 및 하이퍼파라미터
+    ├── main.py                    # Main entry point
+    ├── config.py                  # Configuration and hyperparameters
     ├── models/
     │   ├── __init__.py
-    │   ├── network.py             # 핵심 네트워크 아키텍처
-    │   └── components.py          # 개별 컴포넌트
+    │   ├── network.py             # Core network architecture
+    │   └── components.py          # Individual components
     ├── algorithms/
     │   ├── __init__.py
-    │   └── core_algorithm.py      # 메인 알고리즘 구현
+    │   └── core_algorithm.py      # Main algorithm implementation
     ├── training/
     │   ├── __init__.py
-    │   ├── trainer.py             # 학습 루프
-    │   └── losses.py              # 손실 함수
+    │   ├── trainer.py             # Training loop
+    │   └── losses.py              # Loss function
     ├── evaluation/
     │   ├── __init__.py
-    │   └── metrics.py             # 평가 지표
+    │   └── metrics.py             # Evaluation metrics
     ├── utils/
     │   ├── __init__.py
-    │   └── helpers.py             # 유틸리티 함수
+    │   └── helpers.py             # Utility functions
     ├── experiments/
-    │   └── run_experiments.py     # 실험 스크립트
-    ├── requirements.txt           # 의존성 (마지막에 구현)
-    └── README.md                  # 문서화 (마지막에 구현)
+    │   └── run_experiments.py     # Experiment scripts
+    ├── requirements.txt           # Dependencies (implement last)
+    └── README.md                  # Documentation (implement last)
 
   # ============================================
-  # 섹션 2: 구현 컴포넌트 (~3000-4000자) - 핵심 섹션
+  # Section 2: Implementation Components (~3000-4000 chars) - core section
   # ============================================
-  # 구현해야 할 모든 컴포넌트 식별 및 명세
-  # - 언급된 모든 알고리즘, 모델, 시스템, 컴포넌트 목록
-  # - 각각에 대해: 목적, 위치, 알고리즘, 수식, 기술적 세부사항
-  # - 논문의 실제 내용에 따라 구성
+  # Identify and specify every component that must be implemented
+  # - List all algorithms, models, systems, and components mentioned
+  # - For each one: purpose, location, algorithm, equations, technical details
+  # - Organize according to the actual content of the paper
 
   implementation_components: |
-    ## 1. 핵심 알고리즘
+    ## 1. Core Algorithm
 
-    ### 1.1 [알고리즘 이름]
-    - 위치: algorithms/core_algorithm.py
-    - 목적: [이 알고리즘이 하는 일]
-    - 의사코드:
+    ### 1.1 [Algorithm Name]
+    - Location: algorithms/core_algorithm.py
+    - Purpose: [what this algorithm does]
+    - Pseudocode:
       ```
-      [논문의 의사코드 복사]
+      [Copy the pseudocode from the paper]
       ```
-    - 핵심 수식:
+    - Key equations:
       - [Eq. X]: L = ...
       - [Eq. Y]: ...
-    - 하이퍼파라미터:
-      - param1: value1 (출처: Section X)
-      - param2: value2 (출처: Table Y)
+    - Hyperparameters:
+      - param1: value1 (source: Section X)
+      - param2: value2 (source: Table Y)
 
-    ## 2. 모델 아키텍처
+    ## 2. Model Architecture
 
-    ### 2.1 [모델/네트워크 이름]
-    - 위치: models/network.py
-    - 입력: [shape, 의미]
-    - 출력: [shape, 의미]
-    - 레이어 구성:
+    ### 2.1 [Model/Network Name]
+    - Location: models/network.py
+    - Input: [shape, meaning]
+    - Output: [shape, meaning]
+    - Layer configuration:
       - Layer 1: ...
       - Layer 2: ...
-    - 특별한 초기화: [있다면]
+    - Special initialization: [if any]
 
-    ## 3. 학습 절차
+    ## 3. Training Procedure
 
-    ### 3.1 학습 루프
-    - 위치: training/trainer.py
-    - Epochs/Iterations: [값]
-    - 단계:
-      1. [Step 1 설명]
-      2. [Step 2 설명]
+    ### 3.1 Training Loop
+    - Location: training/trainer.py
+    - Epochs/Iterations: [value]
+    - Steps:
+      1. [Step 1 description]
+      2. [Step 2 description]
 
-    ### 3.2 손실 함수
-    - 위치: training/losses.py
-    - 수식: L_total = ...
-    - 각 항의 의미: ...
+    ### 3.2 Loss Function
+    - Location: training/losses.py
+    - Equation: L_total = ...
+    - Meaning of each term: ...
 
-    ## 4. 평가
+    ## 4. Evaluation
 
-    ### 4.1 평가 지표
-    - 위치: evaluation/metrics.py
-    - 지표 목록: [metric1, metric2, ...]
-    - 각 지표 계산 방법: ...
+    ### 4.1 Evaluation Metrics
+    - Location: evaluation/metrics.py
+    - Metric list: [metric1, metric2, ...]
+    - How to compute each metric: ...
 
   # ============================================
-  # 섹션 3: 검증 방법 (~2000-2500자)
+  # Section 3: Validation Approach (~2000-2500 chars)
   # ============================================
-  # 구현이 올바르게 작동하는지 검증하는 방법 설계
-  # - 필요한 실험, 테스트, 증명 정의
-  # - 논문의 예상 결과 (그림, 테이블, 정리) 명시
-  # - 도메인에 적합한 검증 접근법 설계
-  # - 설정 요구사항과 성공 기준 포함
+  # Design how to validate that the implementation works correctly
+  # - Define the necessary experiments, tests, and proofs
+  # - Specify the paper's expected results (figures, tables, theorems)
+  # - Design a validation approach suited to the domain
+  # - Include configuration requirements and success criteria
 
   validation_approach: |
-    ## 1. 단위 테스트
-    - [ ] 각 컴포넌트가 올바른 출력 shape 생성
-    - [ ] 손실 함수가 올바른 값 반환
-    - [ ] 그래디언트가 올바르게 흐름
+    ## 1. Unit Tests
+    - [ ] Each component produces the correct output shape
+    - [ ] The loss function returns the correct value
+    - [ ] Gradients flow correctly
 
-    ## 2. 통합 테스트
-    - [ ] 전체 학습 파이프라인 실행
-    - [ ] 작은 데이터셋으로 오버피팅 테스트
+    ## 2. Integration Tests
+    - [ ] Run the full training pipeline
+    - [ ] Overfitting test with a small dataset
 
-    ## 3. 논문 결과 재현
+    ## 3. Reproducing the Paper's Results
 
-    ### 3.1 Table X 재현
-    - 예상 결과: [구체적인 숫자]
-    - 허용 오차: ±[값]
-    - 실행 방법: `python experiments/run_experiments.py --exp table_x`
+    ### 3.1 Reproducing Table X
+    - Expected result: [specific numbers]
+    - Tolerance: ±[value]
+    - How to run: `python experiments/run_experiments.py --exp table_x`
 
-    ### 3.2 Figure Y 재현
-    - 예상 동작: [정성적 설명]
-    - 실행 방법: `python experiments/run_experiments.py --exp figure_y`
+    ### 3.2 Reproducing Figure Y
+    - Expected behavior: [qualitative description]
+    - How to run: `python experiments/run_experiments.py --exp figure_y`
 
-    ## 4. 성공 기준
-    - [ ] [구체적인 결과 1]
-    - [ ] [구체적인 결과 2]
-    - [ ] [정성적 동작 1]
+    ## 4. Success Criteria
+    - [ ] [specific result 1]
+    - [ ] [specific result 2]
+    - [ ] [qualitative behavior 1]
 
   # ============================================
-  # 섹션 4: 환경 설정 (~800-1000자)
+  # Section 4: Environment Setup (~800-1000 chars)
   # ============================================
-  # 구현 실행에 필요한 것 명시
-  # - 프로그래밍 언어 및 버전 요구사항
-  # - 외부 라이브러리와 정확한 버전 (논문에 명시된 경우)
-  # - 하드웨어 요구사항 (GPU, 메모리 등)
-  # - 특별한 설정이나 설치 단계
+  # Specify what is needed to run the implementation
+  # - Programming language and version requirements
+  # - External libraries and exact versions (when specified in the paper)
+  # - Hardware requirements (GPU, memory, etc.)
+  # - Special configuration or installation steps
 
   environment_setup: |
-    ## Python 버전
-    - Python 3.10+ (uv 권장)
+    ## Python Version
+    - Python 3.10+ (uv recommended)
 
-    ## 패키지 관리 (uv 사용 - 권장)
-    uv를 사용하여 독립적이고 재현 가능한 환경 구성:
+    ## Package Management (using uv - recommended)
+    Use uv to set up an isolated, reproducible environment:
     ```bash
-    # 프로젝트 초기화
+    # Initialize the project
     uv init
 
-    # 의존성 추가
-    uv add torch numpy [기타 필요한 패키지]
+    # Add dependencies
+    uv add torch numpy [other required packages]
 
-    # 실행
+    # Run
     uv run python main.py
     ```
 
-    ## 핵심 의존성
+    ## Core Dependencies
     ```
     torch>=2.0.0
     numpy>=1.24.0
-    [기타 필요한 패키지]
+    [other required packages]
     ```
 
-    ## 하드웨어 요구사항
+    ## Hardware Requirements
     - GPU: [NVIDIA GPU with X GB VRAM]
-    - RAM: [최소 X GB]
-    - 저장공간: [X GB]
+    - RAM: [minimum X GB]
+    - Storage: [X GB]
 
-    ## 데이터셋 준비
-    - [데이터셋 이름]: [다운로드 방법]
-    - 전처리: [필요한 단계]
+    ## Dataset Preparation
+    - [dataset name]: [how to download]
+    - Preprocessing: [required steps]
 
   # ============================================
-  # 섹션 5: 구현 전략 (~1500-2000자)
+  # Section 5: Implementation Strategy (~1500-2000 chars)
   # ============================================
-  # 단계별 구현 접근법 계획
-  # - 논리적인 단계로 구현 분해
-  # - 컴포넌트 간 의존성 식별
-  # - 각 단계에서 테스트 및 검증 계획
-  # - 누락된 세부사항은 합리적인 기본값으로 처리
+  # Plan a step-by-step implementation approach
+  # - Break the implementation into logical steps
+  # - Identify dependencies between components
+  # - Plan tests and validation at each step
+  # - Handle missing details with reasonable defaults
 
   implementation_strategy: |
-    ## Phase 1: 기반 구축 (먼저)
-    1. config.py - 모든 하이퍼파라미터 정의
-    2. utils/helpers.py - 공통 유틸리티 함수
+    ## Phase 1: Foundation (first)
+    1. config.py - define all hyperparameters
+    2. utils/helpers.py - shared utility functions
 
-    검증: 설정 로드 테스트
+    Validation: test that the configuration loads
 
-    ## Phase 2: 핵심 구현
-    3. models/components.py - 개별 컴포넌트
-    4. models/network.py - 전체 네트워크
-    5. algorithms/core_algorithm.py - 메인 알고리즘
+    ## Phase 2: Core Implementation
+    3. models/components.py - individual components
+    4. models/network.py - the full network
+    5. algorithms/core_algorithm.py - the main algorithm
 
-    검증: 각 컴포넌트 출력 shape 확인
+    Validation: check the output shape of each component
 
-    ## Phase 3: 학습 파이프라인
-    6. training/losses.py - 손실 함수
-    7. training/trainer.py - 학습 루프
+    ## Phase 3: Training Pipeline
+    6. training/losses.py - loss functions
+    7. training/trainer.py - training loop
 
-    검증: 작은 데이터로 오버피팅 테스트
+    Validation: overfitting test with a small dataset
 
-    ## Phase 4: 평가 및 실험
-    8. evaluation/metrics.py - 평가 지표
-    9. experiments/run_experiments.py - 실험 스크립트
-    10. main.py - 메인 진입점
+    ## Phase 4: Evaluation and Experiments
+    8. evaluation/metrics.py - evaluation metrics
+    9. experiments/run_experiments.py - experiment scripts
+    10. main.py - main entry point
 
-    검증: 논문 결과 재현
+    Validation: reproduce the paper's results
 
-    ## Phase 5: 문서화 (마지막)
-    11. pyproject.toml - uv 프로젝트 설정 및 의존성
-    12. README.md - 사용 방법 문서 (uv run 명령 포함)
+    ## Phase 5: Documentation (last)
+    11. pyproject.toml - uv project configuration and dependencies
+    12. README.md - usage documentation (including uv run commands)
 
-    ## 누락된 세부사항 처리
-    - [논문에 없는 것 1]: [제안하는 기본값]
-    - [논문에 없는 것 2]: [제안하는 접근법]
+    ## Handling Missing Details
+    - [missing from the paper 1]: [proposed default]
+    - [missing from the paper 2]: [proposed approach]
 ```
 
 ---
 
-## 중요 원칙
+## Key Principles
 
-1. **완전성**: 모든 5개 섹션이 반드시 포함되어야 함
-2. **상세함**: 모든 알고리즘, 수식, 파라미터, 파일이 명시되어야 함
-3. **실행 가능성**: 이 계획만으로 코드를 작성할 수 있어야 함
-4. **논리적 순서**: 의존성을 고려한 구현 순서 제시
-5. **검증 포함**: 성공 기준과 테스트 방법 명시
+1. **Completeness**: All 5 sections must be included
+2. **Detail**: Every algorithm, equation, parameter, and file must be specified
+3. **Executability**: Code can be written from this plan alone
+4. **Logical Order**: Present an implementation order that accounts for dependencies
+5. **Validation Included**: Success criteria and test methods must be specified
 
-## 파일 우선순위 가이드라인
+## File Priority Guidelines
 
-1. **먼저**: 핵심 알고리즘/모델 파일 (가장 높은 우선순위)
-2. **두 번째**: 지원 모듈과 유틸리티
-3. **세 번째**: 실험과 평가 스크립트
-4. **네 번째**: 설정과 데이터 처리
-5. **마지막**: 문서화 파일 (README.md, requirements.txt)
+1. **First**: Core algorithm/model files (highest priority)
+2. **Second**: Supporting modules and utilities
+3. **Third**: Experiment and evaluation scripts
+4. **Fourth**: Configuration and data handling
+5. **Last**: Documentation files (README.md, requirements.txt)
 
-**참고**: README와 requirements.txt는 최종 구현에 의존하므로 마지막에 작성
-
----
-
-## ⚠️ Self-Check: 완료 전 필수 검증 (MANDATORY)
-
-구현 계획을 완료로 간주하기 **전에** 반드시 다음을 확인:
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️ SELF-CHECK BEFORE FINISHING (모두 YES여야 완료)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-섹션 포함 확인:
-□ file_structure 섹션 포함됨?           → YES / NO
-□ implementation_components 섹션 포함됨? → YES / NO
-□ validation_approach 섹션 포함됨?       → YES / NO
-□ environment_setup 섹션 포함됨?         → YES / NO
-□ implementation_strategy 섹션 포함됨?   → YES / NO
-
-내용 완전성 확인:
-□ 논문의 모든 알고리즘이 컴포넌트로 매핑됨?     → YES / NO
-□ 모든 수식에 Equation 번호와 출처 명시됨?     → YES / NO
-□ 모든 하이퍼파라미터에 값과 출처 명시됨?      → YES / NO
-□ 구현 순서에 의존성이 올바르게 반영됨?        → YES / NO
-□ 검증 방법에 구체적인 예상 결과 포함됨?       → YES / NO
-
-분량 확인:
-□ 전체 분량이 8000자 이상인가?                → YES / NO
-□ Section 2가 가장 상세한가?                  → YES / NO
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️ 하나라도 NO라면 완료될 때까지 계속 작성!
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+**Note**: README and requirements.txt depend on the final implementation, so write them last
 
 ---
 
-## DO / DON'T 가이드라인
+## ⚠️ Self-Check: Mandatory Verification Before Completion
+
+**Before** considering the implementation plan complete, verify the following:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ SELF-CHECK BEFORE FINISHING (all must be YES to finish)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section inclusion check:
+□ Is the file_structure section included?            → YES / NO
+□ Is the implementation_components section included? → YES / NO
+□ Is the validation_approach section included?       → YES / NO
+□ Is the environment_setup section included?         → YES / NO
+□ Is the implementation_strategy section included?   → YES / NO
+
+Content completeness check:
+□ Are all the paper's algorithms mapped to components?              → YES / NO
+□ Is the Equation number and source specified for every equation?   → YES / NO
+□ Are values and sources specified for every hyperparameter?        → YES / NO
+□ Are dependencies correctly reflected in the implementation order? → YES / NO
+□ Does the validation approach include specific expected results?   → YES / NO
+
+Length check:
+□ Is the total length at least 8000 characters? → YES / NO
+□ Is Section 2 the most detailed?               → YES / NO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ If even one is NO, keep writing until it is complete!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+
+## DO / DON'T Guidelines
 
 ```
 DO:
-✓ Phase 1, 2의 모든 추출 결과를 계획에 통합
-✓ 각 파일에 구현할 구체적인 알고리즘/수식 명시
-✓ 파일 간 의존성을 명확히 표시
-✓ 구현에 필요한 모든 정보를 자체 포함 (self-contained)
-✓ 검증 방법에 구체적인 수치/동작 명시
+✓ Integrate all extraction results from Phases 1 and 2 into the plan
+✓ Specify the specific algorithms/equations to implement in each file
+✓ Clearly mark dependencies between files
+✓ Be self-contained with all the information needed for implementation
+✓ Specify concrete numbers/behaviors in the validation approach
 
 DON'T:
-✗ "세부사항은 논문 참조" 같은 불완전한 설명
-✗ 추상적인 컴포넌트 설명 (구체적 수식/알고리즘 없이)
-✗ 검증 방법 없이 구현 계획만 작성
-✗ 의존성 순서를 무시한 파일 배치
-✗ 핵심 섹션(Section 2)을 간략하게 작성
+✗ Incomplete descriptions like "see the paper for details"
+✗ Abstract component descriptions (without concrete equations/algorithms)
+✗ Writing only an implementation plan without a validation approach
+✗ Arranging files in an order that ignores dependencies
+✗ Writing the core section (Section 2) too briefly
 ```

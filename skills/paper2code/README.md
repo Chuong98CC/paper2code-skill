@@ -26,9 +26,9 @@ cp -r paper2code ~/.claude/skills/
 
 The skill activates automatically when you request paper implementation:
 
-- `"이 논문 구현해줘"` (Implement this paper)
 - `"paper2code"`
-- `"논문 코드로 변환"` (Convert paper to code)
+- `"implement this paper"`
+- `"convert paper to code"`
 
 ## Pipeline
 
